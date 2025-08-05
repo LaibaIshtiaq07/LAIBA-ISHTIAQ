@@ -1,0 +1,41 @@
+getwd()
+dir.create("raw_data")
+dir.create("clean_data")
+dir.create("scripts")
+dir.create("results")
+dir.create("plots")
+text <- 'patient_id,age,gender,diagnosis,bmi,smoker
+P001,34,Male,Cancer,22.5,Yes
+P002,28,Female,Normal,20.3,No
+P003,45,Female,Cancer,26.7,Yes
+P004,39,Male,Normal,23.8,No
+P005,50,Female,Cancer,27.1,Yes
+P006,30,Male,Normal,21.9,No
+P007,41,Female,Cancer,25.4,Yes
+P008,36,Female,Normal,24.2,No
+P009,55,Male,Cancer,28.6,Yes
+P010,29,Female,Normal,19.8,No
+P011,48,Male,Normal,24.7,No
+P012,33,Female,Cancer,22.1,Yes
+P013,42,Female,Cancer,27.9,Yes
+P014,31,Male,Normal,23.5,No
+P015,38,Female,Cancer,26.1,Yes
+P016,53,Male,Cancer,28,Yes
+P017,26,Female,Normal,21,No
+P018,46,Male,Cancer,25.6,Yes
+P019,40,Female,Normal,22.9,No
+P020,35,Male,Cancer,24.3,Yes'
+data <- read.csv(textConnection(text))
+write.csv(data, "raw_data/patient_info.csv", row.names = FALSE)
+str(data)
+summary(data)
+data$age <- as.numeric(data$age)
+str(data)
+data$bmi <- as.numeric(data$bmi)
+str(data)
+data$gender <- as.factor(data$gender)
+data$diagnosis <- as.factor(data$diagnosis)
+data$smoker <- as.factor(data$smoker)
+data$smoking_status <- ifelse(data$smoker == "Yes", 1, 0)
+write.csv(data, "clean_data/patient_info_clean.csv", row.names = FALSE)
+save.image("Laiba_Ishtiaq_Class_Ib_Assignment.RData")
